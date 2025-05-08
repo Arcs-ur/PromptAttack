@@ -14,7 +14,7 @@ parser.add_argument(
     "--API_base", type=str, default="https://api.openai.com/v1", help="LLM server"
 )
 parser.add_argument(
-    "--version", type=str, default="gpt-3.5-turbo-0301", help="version of GPT"
+    "--version", type=str, default="gpt-3.5-turbo", help="version of GPT"
 )
 parser.add_argument(
     "--dataset",
