@@ -9,6 +9,7 @@ from nltk.tokenize import word_tokenize
 import itertools
 
 nltk.download("punkt")
+nltk.download("punkt_tab")
 
 
 class PromptAttack(LLMCall):
