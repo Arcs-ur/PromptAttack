@@ -16,13 +16,13 @@ class PromptAttack(LLMCall):
         self,
         log_file,
         API_key,
-        API_base,
         dataset,
         label_list,
         predictor,
         version,
+        provider,
     ) -> None:
-        super().__init__(log_file, API_key, API_base, version)
+        super().__init__(log_file, API_key, version, provider)
         self.dataset = dataset
         self.label_list = label_list
         self.perturbation_instruction = [

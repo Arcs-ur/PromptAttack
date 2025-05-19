@@ -2,8 +2,8 @@ from Call import LLMCall
 
 
 class Predict(LLMCall):
-    def __init__(self, log_file, API_key, API_base, label_list, version) -> None:
-        super().__init__(log_file, API_key, API_base, version)
+    def __init__(self, log_file, API_key, label_list, version, provider) -> None:
+        super().__init__(log_file, API_key, version,provider)
         self.label_list = label_list
 
     def __call__(self, x, task_description):

@@ -1,6 +1,6 @@
 import time
 from openai import OpenAI
-
+from dashscope import Generation as DashScopeClient
 import sqlite3
 import logging
 import threading
@@ -55,12 +55,18 @@ class LLMCall(LLMLogSql):
     log_count: int = 0
     save_count: int = 0
 
-    def __init__(self, log_file, API_key, API_base, version) -> None:
+    def __init__(self, log_file, API_key, version, provider) -> None:
         super().__init__(log_file)
         self.API_key = API_key
-        self.API_base = API_base
         self.version = version
-        self.client = OpenAI(api_key=API_key, base_url=API_base)
+        if provider == "openai":
+            self.client = OpenAI(api_key=API_key, base_url="https://api.openai.com/v1")
+        elif provider == "qwen":
+            self.client = OpenAI(api_key=API_key, base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")
+        elif provider == "deepseek":
+            self.client = OpenAI(api_key=API_key, base_url="https://api.deepseek.com/v1")
+        else:
+            raise ValueError("Unsupported provider: {}".format(provider))
 
     def call(self, prompt):
         response = None
@@ -74,6 +80,7 @@ class LLMCall(LLMLogSql):
             except Exception as e:
                 logging.warning(e)
                 time.sleep(2)
+        print(response.choices[0].message.content)
         return response.choices[0].message.content
 
     def query(self, prompt):
